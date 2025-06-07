@@ -9,8 +9,12 @@ services:
     ports:
       - "9090:3000"
     volumes:
+      # Mount your source code (so you can edit in repo)
       - ./:/usr/src/app
+      # Mount data folder so JSON persists
       - ./data:/usr/src/app/data
+      # Preserve node_modules from the image (prevent host overwrite)
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=production
     restart: unless-stopped
