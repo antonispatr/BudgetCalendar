@@ -1,0 +1,2 @@
+#calendar { max-width: 900px; margin: 0 auto; }
+#event-list { max-height: 250px; overflow-y: auto; }
