@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "date": "2025-06-01",
+    "desc": "1st salary June",
+    "amt": 860
+  },
+  {
+    "date": "2025-06-13",
+    "desc": "2st salary June",
+    "amt": 860
+  }
+]
