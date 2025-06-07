@@ -55,11 +55,16 @@
       }
       const isMonthly = confirm('Repeat monthly?');
       const toSave = [];
-      const baseDate = new Date(info.startStr);
+      // Parse selected date explicitly to avoid timezone shift
+      const [startYear, startMonth, startDay] = info.startStr.split('-').map(Number);
       if (isMonthly) {
-        for (let m = 0; m < 12; m++) {
-          const d = new Date(baseDate.getFullYear(), baseDate.getMonth() + m, baseDate.getDate());
-          toSave.push({ title, start: d.toISOString().split('T')[0], amount });
+        for (let i = 0; i < 12; i++) {
+          const totalMonth = startMonth - 1 + i;
+          const year = startYear + Math.floor(totalMonth / 12);
+          const month = (totalMonth % 12) + 1;
+          const day = startDay;
+          const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          toSave.push({ title, start: dateStr, amount });
         }
       } else {
         toSave.push({ title, start: info.startStr, amount });
