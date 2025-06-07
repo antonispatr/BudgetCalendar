@@ -30,40 +30,60 @@
     });
   }
 
-  // Initialize calendar
+  // Initialize FullCalendar
   const calendarEl = document.getElementById('calendar');
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     selectable: true,
     editable: true,
-    events: async function(fetchInfo, successCallback, failureCallback) {
-      try {
-        const evts = await loadEvents();
-        successCallback(evts);
-      } catch (err) {
-        failureCallback(err);
+    eventSources: [
+      {
+        // Payment events (red)
+        events: async function(info, successCallback, failureCallback) {
+          try {
+            const evts = await loadEvents();
+            successCallback(evts);
+          } catch (err) {
+            failureCallback(err);
+          }
+        },
+        color: '#e74c3c', textColor: '#fff', className: 'payment-event'
+      },
+      {
+        // Income events (green)
+        events: async function(info, successCallback, failureCallback) {
+          try {
+            const inc = await loadIncome();
+            const evtIncome = inc.map(i => ({
+              title: `${i.desc} (€${i.amt.toFixed(2)})`,
+              start: i.date,
+              className: 'income-event'
+            }));
+            successCallback(evtIncome);
+          } catch (err) {
+            failureCallback(err);
+          }
+        },
+        color: '#2ecc71', textColor: '#000', className: 'income-event'
       }
-    },
+    ],
     select: async function(info) {
+      // Prompt for title and amount
       const title = prompt('Payment title:');
       if (!title) return;
       const amountStr = prompt('Payment amount (€):');
       const amount = parseFloat(amountStr);
       if (isNaN(amount)) {
-        alert('Invalid amount');
-        return;
+        alert('Invalid amount'); return;
       }
       const isMonthly = confirm('Repeat monthly?');
       const toSave = [];
-      // Parse selected date explicitly to avoid timezone shift
-      const [startYear, startMonth, startDay] = info.startStr.split('-').map(Number);
+      // Parse selected date to preserve exact day
+      const [year, month, day] = info.startStr.split('-').map(Number);
       if (isMonthly) {
-        for (let i = 0; i < 12; i++) {
-          const totalMonth = startMonth - 1 + i;
-          const year = startYear + Math.floor(totalMonth / 12);
-          const month = (totalMonth % 12) + 1;
-          const day = startDay;
-          const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        // Only remaining months of the selected year
+        for (let m = month; m <= 12; m++) {
+          const dateStr = `${year}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
           toSave.push({ title, start: dateStr, amount });
         }
       } else {
@@ -81,7 +101,7 @@
   });
   calendar.render();
 
-  // Income form submit
+  // Handle income form submission
   document.getElementById('income-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const date = this['income-date'].value;
@@ -91,13 +111,14 @@
       await saveIncome({ date, desc, amt });
       this.reset();
       await renderIncomeTable();
+      calendar.refetchEvents();
       renderSummary();
     } catch (err) {
       alert('Error saving income: ' + err.message);
     }
   });
 
-  // Render helpers
+  // Render event list in sidebar
   async function renderEventList() {
     const listEl = document.getElementById('event-list');
     const year = new Date().getFullYear();
@@ -105,6 +126,7 @@
     listEl.innerHTML = '<ul>' + evts.map(e => `<li>${e.start}: ${e.title} (€${e.amount.toFixed(2)})</li>`).join('') + '</ul>';
   }
 
+  // Render income table
   async function renderIncomeTable() {
     const tbody = document.querySelector('#income-table tbody');
     const inc = await loadIncome();
@@ -112,15 +134,17 @@
       <tr>
         <td>${i.date}</td>
         <td>${i.desc}</td>
-        <td>${i.amt.toFixed(2)}</td>
+        <td class="text-end">${i.amt.toFixed(2)}</td>
       </tr>
     `).join('');
   }
 
+  // Render monthly summary with month names
   async function renderSummary() {
     const evts = await loadEvents();
     const inc = await loadIncome();
     const sums = {};
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     for (let m = 1; m <= 12; m++) sums[m] = { income: 0, outcome: 0 };
     inc.forEach(item => {
       const mon = new Date(item.date).getMonth() + 1;
@@ -134,12 +158,13 @@
     tbody.innerHTML = '';
     for (let m = 1; m <= 12; m++) {
       const { income, outcome } = sums[m];
+      const label = monthNames[m - 1];
       tbody.innerHTML += `
         <tr>
-          <td>${m}</td>
-          <td>${income.toFixed(2)}</td>
-          <td>${outcome.toFixed(2)}</td>
-          <td>${(income - outcome).toFixed(2)}</td>
+          <td>${label}</td>
+          <td class="text-end">${income.toFixed(2)}</td>
+          <td class="text-end">${outcome.toFixed(2)}</td>
+          <td class="text-end">${(income - outcome).toFixed(2)}</td>
         </tr>`;
     }
   }

@@ -1,2 +1,97 @@
-#calendar { max-width: 900px; margin: 0 auto; }
-#event-list { max-height: 250px; overflow-y: auto; }
+/* Base Font */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Calendar Container */
+#calendar {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 0.5rem;
+}
+.card-header {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Navbar Brand */
+.navbar-brand {
+  font-size: 1.5rem;
+  color: #2c3e50 !important;
+}
+
+/* Tables: align numeric columns right */
+table th.text-end,
+table td.text-end {
+  text-align: right;
+}
+
+/* Scrollable areas */
+.overflow-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #bdc3c7 transparent;
+}
+.overflow-auto::-webkit-scrollbar {
+  width: 6px;
+}
+.overflow-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: #bdc3c7;
+  border-radius: 3px;
+}
+
+/* FullCalendar overrides */
+.fc-toolbar-chunk .btn {
+  border-radius: 0.25rem;
+  background-color: #3498db;
+  border-color: #3498db;
+  color: #fff;
+}
+
+/* Default event styling */
+.fc-event {
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.3rem;
+  color: #fff;
+}
+
+/* Payment events (red) */
+.fc-event.payment-event {
+  background-color: #e74c3c !important;
+  border-color: #c0392b !important;
+}
+
+/* Income events (green) */
+.fc-event.income-event {
+  background-color: #2ecc71 !important;
+  border-color: #27ae60 !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+/* Inputs */
+.form-control-sm {
+  border-radius: 0.25rem;
+}
+
+/* Card shadows for depth */
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}

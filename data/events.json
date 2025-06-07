@@ -35,31 +35,6 @@
     "amount": 550
   },
   {
-    "title": "House Rent",
-    "start": "2026-01-10",
-    "amount": 550
-  },
-  {
-    "title": "House Rent",
-    "start": "2026-02-10",
-    "amount": 550
-  },
-  {
-    "title": "House Rent",
-    "start": "2026-03-10",
-    "amount": 550
-  },
-  {
-    "title": "House Rent",
-    "start": "2026-04-10",
-    "amount": 550
-  },
-  {
-    "title": "House Rent",
-    "start": "2026-05-10",
-    "amount": 550
-  },
-  {
     "title": "Accountant Fee",
     "start": "2025-06-02",
     "amount": 40
@@ -107,31 +82,6 @@
   {
     "title": "EFKA Payment",
     "start": "2025-12-02",
-    "amount": 155
-  },
-  {
-    "title": "EFKA Payment",
-    "start": "2026-01-02",
-    "amount": 155
-  },
-  {
-    "title": "EFKA Payment",
-    "start": "2026-02-02",
-    "amount": 155
-  },
-  {
-    "title": "EFKA Payment",
-    "start": "2026-03-02",
-    "amount": 155
-  },
-  {
-    "title": "EFKA Payment",
-    "start": "2026-04-02",
-    "amount": 155
-  },
-  {
-    "title": "EFKA Payment",
-    "start": "2026-05-02",
     "amount": 155
   },
   {
