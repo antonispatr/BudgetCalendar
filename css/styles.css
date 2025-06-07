@@ -1,37 +1,172 @@
-/* Base Font */
+/*=======================================
+=            Theme Variables            =
+=======================================*/
+:root {
+  --primary: #3498db;
+  --primary-dark: #2980b9;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --bg: #f7f9fc;
+  --card-bg: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --border-radius: 0.5rem;
+  --transition: 0.2s ease-in-out;
+}
+
+/*=======================================
+=            Global Styles             =
+=======================================*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
 }
 
-/* Calendar Container */
-#calendar {
-  max-width: 100%;
-  margin: 0 auto;
+/*=======================================
+=            Navbar Styling            =
+=======================================*/
+.navbar {
+  background-color: var(--card-bg) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-bottom: 1px solid #e0e0e0;
+}
+.navbar-brand {
+  font-size: 1.75rem;
+  color: var(--text-primary) !important;
+  transition: color var(--transition);
+}
+.navbar-brand:hover {
+  color: var(--primary-dark) !important;
 }
 
-/* Card Styling */
+/*=======================================
+=            Card & Container          =
+=======================================*/
+.container {
+  max-width: 1720px;
+}
 .card {
+  background-color: var(--card-bg);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius);
+  transition: box-shadow var(--transition);
+}
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 .card-header {
+  background: none;
+  border-bottom: 1px solid #e0e0e0;
   font-weight: 500;
   font-size: 1rem;
+  color: var(--text-secondary);
 }
 
-/* Navbar Brand */
-.navbar-brand {
-  font-size: 1.5rem;
-  color: #2c3e50 !important;
+/*=======================================
+=            Buttons & Inputs          =
+=======================================*/
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  border-radius: var(--border-radius);
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+.form-control,
+.form-select {
+  border-radius: var(--border-radius);
+  border: 1px solid #ced4da;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
 }
 
-/* Tables: align numeric columns right */
-table th.text-end,
-table td.text-end {
+/*=======================================
+=         Calendar Overrides           =
+=======================================*/
+/* Toolbar buttons */
+.fc .fc-button {
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius);
+  color: #fff;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  transition: background var(--transition);
+}
+.fc .fc-button:hover,
+.fc .fc-button:focus {
+  background-color: var(--primary-dark);
+}
+
+/* Day grid styling */
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number {
+  color: var(--text-secondary);
+}
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(52,152,219,0.05);
+  border-radius: var(--border-radius);
+}
+
+/* Event styling */
+.fc-event {
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
+}
+.fc-event.expense-event {
+  background-color: var(--danger) !important;
+}
+.fc-event.income-event {
+  background-color: var(--success) !important;
+}
+
+/*=======================================
+=            Table Styling             =
+=======================================*/
+.table {
+  margin-bottom: 0;
+}
+.table thead {
+  background-color: #f0f0f0;
+}
+.table th,
+.table td {
+  vertical-align: middle;
+  padding: 0.5rem 0.75rem;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.table th.text-end,
+.table td.text-end {
   text-align: right;
 }
 
-/* Scrollable areas */
+/*=======================================
+=         Scrollbar (Modern Touch)     =
+=======================================*/
 .overflow-auto {
   scrollbar-width: thin;
   scrollbar-color: #bdc3c7 transparent;
@@ -47,51 +182,13 @@ table td.text-end {
   border-radius: 3px;
 }
 
-/* FullCalendar overrides */
-.fc-toolbar-chunk .btn {
-  border-radius: 0.25rem;
-  background-color: #3498db;
-  border-color: #3498db;
-  color: #fff;
-}
+/*=======================================
+=            Utility Spacing           =
+=======================================*/
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.p-2  { padding: 0.5rem !important; }
+.p-3  { padding: 1rem !important; }
 
-/* Default event styling */
-.fc-event {
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.1rem 0.3rem;
-  color: #fff;
-}
-
-/* Payment events (red) */
-.fc-event.payment-event {
-  background-color: #e74c3c !important;
-  border-color: #c0392b !important;
-}
-
-/* Income events (green) */
-.fc-event.income-event {
-  background-color: #2ecc71 !important;
-  border-color: #27ae60 !important;
-}
-
-/* Buttons */
-.btn-primary {
-  background-color: #3498db;
-  border-color: #3498db;
-}
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: #2980b9;
-  border-color: #2980b9;
-}
-
-/* Inputs */
-.form-control-sm {
-  border-radius: 0.25rem;
-}
-
-/* Card shadows for depth */
-.shadow-sm {
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
-}
