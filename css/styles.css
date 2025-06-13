@@ -2,16 +2,18 @@
 =            Theme Variables            =
 =======================================*/
 :root {
-  --primary: #3498db;
-  --primary-dark: #2980b9;
-  --success: #2ecc71;
-  --danger: #e74c3c;
-  --bg: #f7f9fc;
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --bg: #f9fafb;
   --card-bg: #ffffff;
-  --text-primary: #2c3e50;
-  --text-secondary: #7f8c8d;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
   --border-radius: 0.5rem;
   --transition: 0.2s ease-in-out;
+  --shadow: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 8px rgba(0,0,0,0.08);
 }
 
 /*=======================================
@@ -25,7 +27,7 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--bg);
   color: var(--text-primary);
   line-height: 1.6;
@@ -36,8 +38,8 @@ body {
 =======================================*/
 .navbar {
   background-color: var(--card-bg) !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  border-bottom: 1px solid #e0e0e0;
+  box-shadow: var(--shadow);
+  border-bottom: 1px solid #e5e7eb;
 }
 .navbar-brand {
   font-size: 1.75rem;
@@ -58,14 +60,16 @@ body {
   background-color: var(--card-bg);
   border: none;
   border-radius: var(--border-radius);
-  transition: box-shadow var(--transition);
+  box-shadow: var(--shadow);
+  transition: box-shadow var(--transition), transform var(--transition);
 }
 .card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
 .card-header {
   background: none;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e5e7eb;
   font-weight: 500;
   font-size: 1rem;
   color: var(--text-secondary);
@@ -78,12 +82,14 @@ body {
   background-color: var(--primary);
   border-color: var(--primary);
   border-radius: var(--border-radius);
-  transition: background var(--transition), border-color var(--transition);
+  box-shadow: var(--shadow);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: var(--primary-dark);
   border-color: var(--primary-dark);
+  box-shadow: var(--shadow-hover);
 }
 .form-control,
 .form-select {
@@ -94,7 +100,7 @@ body {
 .form-control:focus,
 .form-select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+  box-shadow: 0 0 0 0.2rem rgba(99,102,241,0.25);
 }
 
 /*=======================================
@@ -121,7 +127,7 @@ body {
   color: var(--text-secondary);
 }
 .fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(52,152,219,0.05);
+  background-color: rgba(99,102,241,0.1);
   border-radius: var(--border-radius);
 }
 
@@ -146,7 +152,7 @@ body {
   margin-bottom: 0;
 }
 .table thead {
-  background-color: #f0f0f0;
+  background-color: #f3f4f6;
 }
 .table th,
 .table td {
@@ -154,10 +160,10 @@ body {
   padding: 0.5rem 0.75rem;
 }
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #fafafa;
+  background-color: #f9fafb;
 }
 .table-hover tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f3f4f6;
 }
 .table th.text-end,
 .table td.text-end {
@@ -169,7 +175,7 @@ body {
 =======================================*/
 .overflow-auto {
   scrollbar-width: thin;
-  scrollbar-color: #bdc3c7 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }
 .overflow-auto::-webkit-scrollbar {
   width: 6px;
@@ -178,7 +184,7 @@ body {
   background: transparent;
 }
 .overflow-auto::-webkit-scrollbar-thumb {
-  background-color: #bdc3c7;
+  background-color: #cbd5e1;
   border-radius: 3px;
 }
 
